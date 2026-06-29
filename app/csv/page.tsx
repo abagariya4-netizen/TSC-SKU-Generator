@@ -156,16 +156,16 @@ export default function CsvPage() {
     <div className="max-w-7xl mx-auto space-y-8">
       <KeepInMind />
 
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+      <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
         <div className="flex justify-between items-end mb-4">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Bulk CSV Upload</h2>
-            <p className="text-slate-500 text-sm mt-1">Paste CSV data or upload a file. Header row is required.</p>
+            <h2 className="text-xl font-heading font-bold text-foreground">Bulk CSV Upload</h2>
+            <p className="text-muted text-sm mt-1">Paste CSV data or upload a file. Header row is required.</p>
           </div>
           <div className="flex gap-2">
             <button 
               onClick={() => setCsvText(EXAMPLE_CSV)}
-              className="text-sm font-medium text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+              className="text-sm font-medium text-primary hover:bg-primary/10 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
             >
               <FileText size={16} /> Load Example
             </button>
@@ -176,7 +176,7 @@ export default function CsvPage() {
                 const a = document.createElement('a')
                 a.href = url; a.download = 'Template.csv'; a.click()
               }}
-              className="text-sm font-medium text-slate-600 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 border border-slate-200"
+              className="text-sm font-medium text-muted hover:bg-white/5 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 border border-border"
             >
               <Download size={16} /> Template
             </button>
@@ -184,7 +184,7 @@ export default function CsvPage() {
         </div>
 
         <textarea 
-          className="w-full h-48 p-4 bg-slate-50 border border-slate-200 rounded-xl font-mono text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+          className="w-full h-48 p-4 bg-navy border border-border rounded-xl font-mono text-sm text-foreground focus:ring-2 focus:ring-primary outline-none transition-all"
           placeholder="Category,Sub-Category,Product,Variation 1,Variation 2&#10;Mattress,,Orthogrid,King(78*72),8"
           value={csvText}
           onChange={e => setCsvText(e.target.value)}
@@ -195,7 +195,7 @@ export default function CsvPage() {
             <input type="file" accept=".csv" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
             <button 
               onClick={() => fileInputRef.current?.click()}
-              className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"
+              className="bg-navy hover:bg-navy/80 border border-border text-foreground font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"
             >
               <Upload size={18} /> Upload .csv
             </button>
@@ -203,7 +203,7 @@ export default function CsvPage() {
           <button 
             onClick={processCsv}
             disabled={!csvText.trim() || loading}
-            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+            className="bg-primary hover:bg-primary/90 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
           >
             {loading ? <Loader2 className="animate-spin" size={18} /> : 'Process CSV'}
           </button>
@@ -211,20 +211,20 @@ export default function CsvPage() {
       </div>
 
       {results.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
-            <h3 className="font-bold text-slate-800">Results ({results.length} rows)</h3>
+        <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
+          <div className="p-4 border-b border-border bg-navy/50 flex justify-between items-center">
+            <h3 className="font-heading font-bold text-foreground">Results ({results.length} rows)</h3>
             <div className="flex gap-2">
               <button 
                 onClick={downloadResults}
-                className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 text-sm font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition-colors"
+                className="bg-card border border-border text-muted hover:bg-white/5 text-sm font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <Download size={14} /> Download Results
               </button>
               <button 
                 onClick={handleSaveToHistory}
                 disabled={saving || results.filter(r => r.status === 'success').length === 0}
-                className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-sm font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition-colors"
+                className="bg-success hover:bg-success/90 disabled:opacity-50 text-navy text-sm font-bold py-1.5 px-3 rounded-lg flex items-center gap-2 transition-colors"
               >
                 {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                 Save {results.filter(r => r.status === 'success').length} to History
@@ -233,14 +233,14 @@ export default function CsvPage() {
           </div>
 
           {saveMessage && (
-            <div className={`px-4 py-3 text-sm font-medium text-center ${saveMessage.includes('Successfully') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+            <div className={`px-4 py-3 text-sm font-medium text-center ${saveMessage.includes('Successfully') ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}>
               {saveMessage}
             </div>
           )}
 
           <div className="overflow-x-auto max-h-[500px]">
-            <table className="w-full text-left text-sm text-slate-600">
-              <thead className="bg-slate-50 text-slate-500 sticky top-0 uppercase text-xs">
+            <table className="w-full text-left text-sm text-muted">
+              <thead className="bg-navy/50 text-muted sticky top-0 uppercase text-xs font-heading">
                 <tr>
                   <th className="px-4 py-3 font-semibold">Row</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
@@ -249,20 +249,20 @@ export default function CsvPage() {
                   <th className="px-4 py-3 font-semibold">Details / Error</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-border">
                 {results.map((r, i) => (
-                  <tr key={i} className={r.status === 'error' ? 'bg-red-50/30' : 'hover:bg-slate-50/50'}>
-                    <td className="px-4 py-3 text-slate-400">{r.line}</td>
+                  <tr key={i} className={r.status === 'error' ? 'bg-error/5 hover:bg-error/10' : 'hover:bg-navy/50'}>
+                    <td className="px-4 py-3 text-muted">{r.line}</td>
                     <td className="px-4 py-3">
                       {r.status === 'success' ? (
-                        <span className="flex items-center gap-1 text-green-600 bg-green-100 px-2 py-1 rounded text-xs font-bold w-fit"><Check size={12}/> OK</span>
+                        <span className="flex items-center gap-1 text-success bg-success/10 px-2 py-1 rounded text-xs font-bold w-fit"><Check size={12}/> OK</span>
                       ) : (
-                        <span className="flex items-center gap-1 text-red-600 bg-red-100 px-2 py-1 rounded text-xs font-bold w-fit"><AlertCircle size={12}/> ERR</span>
+                        <span className="flex items-center gap-1 text-error bg-error/10 px-2 py-1 rounded text-xs font-bold w-fit"><AlertCircle size={12}/> ERR</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 font-mono font-bold text-slate-900">{r.sku || '-'}</td>
-                    <td className="px-4 py-3">{r.product} <span className="text-xs text-slate-400 block">{r.category}</span></td>
-                    <td className={`px-4 py-3 ${r.status === 'error' ? 'text-red-600' : ''}`}>
+                    <td className="px-4 py-3 font-mono font-bold text-foreground">{r.sku || '-'}</td>
+                    <td className="px-4 py-3">{r.product} <span className="text-xs text-muted block">{r.category}</span></td>
+                    <td className={`px-4 py-3 ${r.status === 'error' ? 'text-error' : ''}`}>
                       {r.status === 'error' ? r.message : r.details}
                     </td>
                   </tr>

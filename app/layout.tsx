@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
+const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-space-mono" });
 
 export const metadata: Metadata = {
   title: "TSC SKU Generator",
@@ -16,16 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-slate-50 min-h-screen flex flex-col`}>
-        <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
+      <body className="font-sans bg-navy text-foreground min-h-screen flex flex-col antialiased">
+        <header className="bg-card border-b border-border shadow-md sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">T</div>
-                <span className="font-bold text-xl text-slate-900 tracking-tight">SKU Generator</span>
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-heading font-bold text-xl shadow-lg shadow-primary/20">T</div>
+                <span className="font-heading font-bold text-xl text-foreground tracking-tight">SKU Generator</span>
               </div>
-              <nav className="flex gap-1">
+              <nav className="flex gap-2">
                 <NavLink href="/">Single Entry</NavLink>
                 <NavLink href="/csv">Bulk CSV</NavLink>
                 <NavLink href="/history">History</NavLink>
@@ -44,7 +46,7 @@ export default function RootLayout({
 
 function NavLink({ href, children }: { href: string, children: React.ReactNode }) {
   return (
-    <Link href={href} className="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+    <Link href={href} className="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:text-white hover:bg-white/5 transition-colors">
       {children}
     </Link>
   )

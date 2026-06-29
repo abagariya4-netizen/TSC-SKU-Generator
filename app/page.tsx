@@ -142,8 +142,8 @@ export default function SingleEntryPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Form */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900 mb-6">Build a SKU</h2>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <h2 className="text-xl font-heading font-bold text-foreground mb-6">Build a SKU</h2>
           
           <div className="space-y-5">
             <ComboBox 
@@ -184,7 +184,7 @@ export default function SingleEntryPage() {
               disabled={!category || (isAccessory && !subcategory)}
             />
 
-            <div className="h-px bg-slate-100 my-4" />
+            <div className="h-px bg-border my-4" />
 
             {/* Dimension Category */}
             {selectedCategory?.type === 'dimension' && (
@@ -199,20 +199,20 @@ export default function SingleEntryPage() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Dimensions (e.g. 78*72)</label>
+                    <label className="block text-sm font-medium text-muted mb-1">Dimensions (e.g. 78*72)</label>
                     <input 
                       type="text"
-                      className="w-full p-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all disabled:opacity-50 disabled:bg-slate-50"
+                      className="w-full p-3 bg-navy text-foreground border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all disabled:opacity-50 disabled:bg-card"
                       value={dims}
                       onChange={e => setDims(e.target.value)}
                       disabled={customSize}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Thickness</label>
+                    <label className="block text-sm font-medium text-muted mb-1">Thickness</label>
                     <input 
                       type="number"
-                      className="w-full p-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                      className="w-full p-3 bg-navy text-foreground border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                       value={var2}
                       onChange={e => setVar2(e.target.value)}
                       placeholder="e.g. 8"
@@ -220,17 +220,17 @@ export default function SingleEntryPage() {
                   </div>
                 </div>
 
-                <label className="flex items-center gap-2 cursor-pointer mt-2">
+                <label className="flex items-center gap-2 cursor-pointer mt-2 w-fit">
                   <input 
                     type="checkbox" 
-                    className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
+                    className="w-4 h-4 text-primary rounded border-border focus:ring-primary bg-navy accent-primary"
                     checked={customSize}
                     onChange={e => {
                       setCustomSize(e.target.checked)
                       if (e.target.checked) setDims('')
                     }}
                   />
-                  <span className="text-sm font-medium text-slate-700">Custom Dimensions</span>
+                  <span className="text-sm font-medium text-muted">Custom Dimensions</span>
                 </label>
               </div>
             )}
@@ -259,19 +259,19 @@ export default function SingleEntryPage() {
             {isAccessory && selectedSub?.code === 'P' && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Thickness</label>
+                  <label className="block text-sm font-medium text-muted mb-1">Thickness</label>
                   <input 
                     type="number"
-                    className="w-full p-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    className="w-full p-3 bg-navy text-foreground border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                     value={var1}
                     onChange={e => setVar1(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Pack Size (Optional)</label>
+                  <label className="block text-sm font-medium text-muted mb-1">Pack Size (Optional)</label>
                   <input 
                     type="number"
-                    className="w-full p-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    className="w-full p-3 bg-navy text-foreground border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                     value={var2}
                     onChange={e => setVar2(e.target.value)}
                     placeholder="e.g. 2"
@@ -304,13 +304,13 @@ export default function SingleEntryPage() {
               <button 
                 onClick={handleSave}
                 disabled={!result || !!result.error || saving}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:hover:bg-blue-600 text-white font-semibold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 disabled:opacity-50 disabled:hover:opacity-50 text-white font-semibold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/20"
               >
                 {saving ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
                 Generate & Save SKU
               </button>
               {saveMessage && (
-                <p className={`text-center mt-3 text-sm font-medium ${saveMessage.includes('successfully') ? 'text-green-600' : 'text-red-500'}`}>
+                <p className={`text-center mt-3 text-sm font-medium ${saveMessage.includes('successfully') ? 'text-success' : 'text-error'}`}>
                   {saveMessage}
                 </p>
               )}

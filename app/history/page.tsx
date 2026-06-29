@@ -43,13 +43,13 @@ export default function HistoryPage() {
   if (loading) return <div className="p-8 flex justify-center"><Loader2 className="animate-spin text-blue-500" /></div>
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-      <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50">
-        <h2 className="text-xl font-bold text-slate-900">Generated SKUs History</h2>
+    <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
+      <div className="p-6 border-b border-border flex justify-between items-center bg-navy/50">
+        <h2 className="text-xl font-heading font-bold text-foreground">Generated SKUs History</h2>
         <button 
           onClick={downloadCSV}
           disabled={history.length === 0}
-          className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors disabled:opacity-50"
+          className="bg-card border border-border text-muted hover:bg-white/5 font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors disabled:opacity-50"
         >
           <Download size={16} />
           Download CSV
@@ -57,8 +57,8 @@ export default function HistoryPage() {
       </div>
       
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-600">
-          <thead className="bg-slate-50 text-slate-500 uppercase text-xs border-b border-slate-200">
+        <table className="w-full text-left text-sm text-muted">
+          <thead className="bg-navy/50 text-muted uppercase text-xs font-heading border-b border-border">
             <tr>
               <th className="px-6 py-4 font-semibold">SKU</th>
               <th className="px-6 py-4 font-semibold">Category</th>
@@ -68,15 +68,15 @@ export default function HistoryPage() {
               <th className="px-6 py-4 font-semibold w-16"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-border">
             {history.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-6 py-8 text-center text-slate-400">No SKUs generated yet</td>
+                <td colSpan={6} className="px-6 py-8 text-center text-muted">No SKUs generated yet</td>
               </tr>
             ) : (
               history.map((row) => (
-                <tr key={row.id} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-4 font-mono font-bold text-slate-900">{row.sku}</td>
+                <tr key={row.id} className="hover:bg-navy/50 transition-colors">
+                  <td className="px-6 py-4 font-mono font-bold text-foreground">{row.sku}</td>
                   <td className="px-6 py-4">{row.category}</td>
                   <td className="px-6 py-4">{row.product}</td>
                   <td className="px-6 py-4">{row.details}</td>
@@ -84,7 +84,7 @@ export default function HistoryPage() {
                   <td className="px-6 py-4">
                     <button 
                       onClick={() => handleCopy(row.sku)}
-                      className="text-slate-400 hover:text-blue-600 transition-colors"
+                      className="text-muted hover:text-primary transition-colors"
                       title="Copy SKU"
                     >
                       <Copy size={16} />
